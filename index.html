@@ -44,6 +44,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     margin-top: 15px;
+    transition: 0.3s;
 }
 
 button:hover {
@@ -117,6 +118,25 @@ section {
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
+
+/* LOVE LETTER STYLING */
+.love-letter {
+    max-width: 750px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.8;
+    background: rgba(255,255,255,0.15);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
+}
+
+.love-letter:hover {
+    box-shadow: 0 0 45px rgba(255,255,255,0.8);
+    transform: scale(1.02);
+}
 </style>
 </head>
 
@@ -174,22 +194,41 @@ section {
     <div id="loveCount">Love Count: 0</div>
 </section>
 
+<!-- LOVE LETTER SECTION -->
+<section>
+    <h2>💌 Love Letter To Mahu</h2>
+    <div class="love-letter">
+        <p>
+        My dearest Mahu,
+
+        From the moment you stepped into my life, everything started feeling brighter. You didn’t just become a part of my days — you became the reason they feel special. Your smile has this soft magic that calms my chaos, and your voice has this warmth that feels like home.
+
+        Mahu, you are more than just someone I love. You are someone I deeply admire. Your kindness, your innocence, your laughter, and even your little mood swings — everything about you makes you beautifully unique. Sometimes I wonder how I got so lucky to have someone like you in my life.
+
+        Being with you has changed me. You make me want to become better, stronger, and more focused — not just for myself, but for us. When I imagine my future, I don’t see success alone. I see you standing beside me, smiling proudly. That thought gives me strength.
+
+        I love the way we talk for hours without getting bored. I love the way we understand each other even without words. I love the comfort I feel when I think about you. It’s peaceful. It’s real. It’s something I never want to lose.
+
+        Thank you for being patient with me. Thank you for choosing me. Thank you for loving me in your own beautiful way. I promise I will always respect you, support you, and protect your heart. No matter what life throws at us, I want to face it with you.
+
+        Mahu, you are my happiness, my peace, my motivation, and my forever. I don’t just love you for today — I love you for every tomorrow waiting ahead of us.
+
+        Happy Birthday, my love. ❤️  
+        Always yours.
+        </p>
+    </div>
+</section>
+
 <section>
     <h2>I Love You Forever ❤️</h2>
 </section>
 
 </div>
 
-<!-- SURPRISE POPUP -->
-<div id="surprisePopup">
-    🎉 Surprise! I am so lucky to have you in my life. You are my forever ❤️
-</div>
-
 <script>
-/* PASSWORD */
 function checkPassword() {
     let pass = document.getElementById("passwordInput").value;
-    if(pass === "1411") {   // CHANGE PASSWORD HERE
+    if(pass === "1411") {
         document.getElementById("passwordScreen").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
     } else {
@@ -197,7 +236,6 @@ function checkPassword() {
     }
 }
 
-/* Slideshow */
 let slideIndex = 0;
 const slides = document.querySelectorAll(".slideshow img");
 
@@ -207,7 +245,6 @@ function nextSlide() {
     slides[slideIndex].classList.add("active");
 }
 
-/* Love Game */
 let love = 0;
 function increaseLove() {
     love++;
@@ -219,7 +256,6 @@ function increaseLove() {
     }
 }
 
-/* Fireworks */
 function launchFireworks() {
     for(let i=0;i<15;i++){
         let fire = document.createElement("div");
@@ -232,7 +268,6 @@ function launchFireworks() {
     }
 }
 
-/* Floating Hearts */
 setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart-float");
@@ -241,10 +276,7 @@ setInterval(() => {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }, 500);
-
 </script>
 
 </body>
 </html>
-
-
