@@ -3,281 +3,328 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For Mahu ❤️</title>
 
 <style>
 :root{
-    --pink:#ff4e88;
+  --pink:#ff2e7a;
+  --dark:#050505;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
 body{
-    background:black;
-    color:white;
-    overflow-x:hidden;
+  background:var(--dark);
+  color:white;
+  overflow-x:hidden;
 }
 
-/* Soft Pink Glow Background */
-body::before{
-    content:"";
-    position:fixed;
-    width:600px;
-    height:600px;
-    background:radial-gradient(circle, rgba(255,78,136,0.35), transparent 70%);
-    top:-200px;
-    left:-200px;
-    z-index:-1;
+/* Starfield Canvas */
+#stars{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:-2;
 }
 
-body::after{
-    content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    background:radial-gradient(circle, rgba(255,78,136,0.25), transparent 70%);
-    bottom:-200px;
-    right:-200px;
-    z-index:-1;
+/* Pink Cursor Glow */
+.cursor-glow{
+  position:fixed;
+  width:200px;
+  height:200px;
+  background:radial-gradient(circle, rgba(255,46,122,0.35), transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:-1;
 }
 
-/* Password Screen */
+/* Lock Screen */
 #lock{
-    position:fixed;
-    height:100vh;
-    width:100%;
-    background:black;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:999;
 }
 
 input{
-    padding:12px 20px;
-    border-radius:30px;
-    border:1px solid var(--pink);
-    background:black;
-    color:white;
-    margin-top:15px;
-    text-align:center;
+  padding:12px 25px;
+  border-radius:30px;
+  border:1px solid var(--pink);
+  background:black;
+  color:white;
+  margin-top:20px;
 }
 
 button{
-    padding:12px 25px;
-    border-radius:30px;
-    border:none;
-    background:var(--pink);
-    color:white;
-    cursor:pointer;
-    margin-top:15px;
-    transition:0.3s;
+  padding:12px 30px;
+  border-radius:30px;
+  border:none;
+  background:var(--pink);
+  color:white;
+  margin-top:20px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 button:hover{
-    box-shadow:0 0 15px var(--pink);
+  box-shadow:0 0 15px var(--pink);
 }
 
-/* Sections */
 section{
-    padding:80px 20px;
-    text-align:center;
-    max-width:900px;
-    margin:auto;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:40px;
+  text-align:center;
 }
 
-/* Cinematic Text */
-.story{
-    font-size:20px;
-    line-height:1.8;
-    opacity:0;
-    transform:translateY(40px);
-    transition:1s;
+/* Typewriter */
+#typeText{
+  font-size:22px;
+  max-width:800px;
+  line-height:1.8;
+  border-right:2px solid var(--pink);
+  white-space:nowrap;
+  overflow:hidden;
 }
 
-.story.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* Hero Photo */
+/* Hero Image */
 .hero{
-    width:100%;
-    max-width:400px;
-    border-radius:20px;
-    box-shadow:0 0 40px var(--pink);
+  width:80%;
+  max-width:400px;
+  border-radius:20px;
+  box-shadow:0 0 40px var(--pink);
+  transform:scale(0.8);
+  opacity:0;
+  transition:1.5s;
 }
 
-/* Gallery */
-.gallery{
-    display:flex;
-    overflow-x:auto;
-    gap:15px;
-    padding:20px;
-    scroll-snap-type:x mandatory;
+.hero.show{
+  transform:scale(1);
+  opacity:1;
 }
 
-.gallery img{
-    width:250px;
-    border-radius:15px;
-    scroll-snap-align:center;
-    flex-shrink:0;
+/* 3D Carousel */
+.carousel{
+  position:relative;
+  width:300px;
+  height:300px;
+  transform-style:preserve-3d;
+  animation:rotate 20s infinite linear;
 }
 
-/* Love Counter */
-#loveCount{
-    font-size:24px;
-    margin-top:20px;
+.carousel img{
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:15px;
+  left:50px;
+}
+
+@keyframes rotate{
+  from{transform:rotateY(0);}
+  to{transform:rotateY(360deg);}
+}
+
+/* Love Meter */
+#loveBar{
+  width:300px;
+  height:20px;
+  border:1px solid var(--pink);
+  margin-top:20px;
+}
+
+#loveFill{
+  height:100%;
+  width:0%;
+  background:var(--pink);
+  transition:0.3s;
 }
 
 /* Confession */
-#confession{
-    display:none;
-    font-size:26px;
-    margin-top:40px;
-    animation:fadeIn 1.5s ease forwards;
+#final{
+  display:none;
+  font-size:28px;
+  animation:fadeIn 2s forwards;
 }
 
 @keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* Secret Panel */
+#secretPanel{
+  position:fixed;
+  right:-400px;
+  top:0;
+  width:300px;
+  height:100%;
+  background:#111;
+  padding:30px;
+  transition:0.6s;
+  box-shadow:-5px 0 20px rgba(255,46,122,0.5);
+}
+
+#secretPanel.show{
+  right:0;
 }
 
 /* Responsive */
 @media(max-width:768px){
-    .story{font-size:18px;}
+  #typeText{font-size:18px;}
 }
 </style>
 </head>
 
 <body>
 
+<canvas id="stars"></canvas>
+<div class="cursor-glow" id="glow"></div>
+
 <div id="lock">
-    <h2>Enter the Secret 🔐</h2>
-    <input type="password" id="pass">
-    <button onclick="unlock()">Enter</button>
-    <p id="wrong"></p>
+  <h2>Enter the Secret 🔐</h2>
+  <input type="password" id="pass">
+  <button onclick="unlock()">Enter</button>
 </div>
 
 <div id="content" style="display:none;">
 
-<audio controls autoplay loop>
+<audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <section>
-    <h1 style="font-size:40px;">Happy Birthday ❤️</h1>
-</section>
-
-<section class="story">
-    The world did not change the day you were born.
-    But mine did.
-</section>
-
-<section class="story">
-    In a universe full of noise,
-    you became my quiet.
-    In days full of chaos,
-    you became my calm.
+  <div id="typeText"></div>
 </section>
 
 <section>
-    <img src="10.jpeg" class="hero">
-</section>
-
-<section class="story">
-    Loving you is not a moment.
-    It is a feeling that grows deeper
-    every single day.
+  <img src="10.jpeg" class="hero" id="heroImg">
 </section>
 
 <section>
-    <h2>Memories</h2>
-    <div class="gallery">
-        <img src="1.jpeg">
-        <img src="2.jpeg">
-        <img src="3.jpeg">
-        <img src="4.jpeg">
-        <img src="5.jpeg">
-        <img src="6.jpeg">
-        <img src="7.jpeg">
-        <img src="8.jpeg">
-        <img src="9.jpeg">
-        <img src="11.jpeg">
-        <img src="12.jpeg">
-        <img src="13.jpeg">
-        <img src="14.jpeg">
-    </div>
+  <h2>Our Dimension</h2>
+  <div class="carousel" id="carousel"></div>
 </section>
 
 <section>
-    <h2>Make a Wish 🎂</h2>
-    <button onclick="blow()">Blow the Candles</button>
+  <h2>Love Energy</h2>
+  <button onclick="increaseLove()">Charge ❤️</button>
+  <div id="loveBar"><div id="loveFill"></div></div>
 </section>
 
-<section>
-    <h2>How much do you love me? ❤️</h2>
-    <button onclick="love()">Click</button>
-    <div id="loveCount">0</div>
-</section>
-
-<section id="confession">
-    Will you stay with me… not just today,
-    but for every birthday that comes?
+<section id="final">
+  Every lifetime. Every universe. It’s you, Mahu. ❤️
 </section>
 
 </div>
 
+<div id="secretPanel">
+  <h3>You found it…</h3>
+  <p>No matter what happens, my heart chooses you. Always.</p>
+</div>
+
 <script>
+/* Password */
 function unlock(){
-    if(document.getElementById("pass").value==="1411"){
-        document.getElementById("lock").style.display="none";
-        document.getElementById("content").style.display="block";
-    }else{
-        document.getElementById("wrong").innerText="Wrong password";
-    }
+  if(document.getElementById("pass").value==="1411"){
+    document.getElementById("lock").style.display="none";
+    document.getElementById("content").style.display="block";
+    startExperience();
+  }
 }
 
-/* Scroll Animation */
-const stories=document.querySelectorAll(".story");
-window.addEventListener("scroll",()=>{
-    stories.forEach(el=>{
-        const pos=el.getBoundingClientRect().top;
-        if(pos<window.innerHeight-100){
-            el.classList.add("show");
-        }
-    });
+/* Audio Fade In */
+function startExperience(){
+  let music=document.getElementById("bgMusic");
+  music.volume=0;
+  music.play();
+  let fade=setInterval(()=>{
+    if(music.volume<0.5){music.volume+=0.02;}
+    else clearInterval(fade);
+  },200);
+  typeStory();
+}
+
+/* Typewriter Story */
+const text="In a universe full of chaos, you became my calm. In every version of my future... there is you.";
+let i=0;
+function typeStory(){
+  let t=document.getElementById("typeText");
+  if(i<text.length){
+    t.innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typeStory,40);
+  }else{
+    document.getElementById("heroImg").classList.add("show");
+  }
+}
+
+/* Starfield */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let stars=[];
+for(let i=0;i<150;i++){
+  stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*2});
+}
+function animateStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+  stars.forEach(s=>{
+    ctx.fillRect(s.x,s.y,s.size,s.size);
+    s.y+=0.2;
+    if(s.y>canvas.height) s.y=0;
+  });
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+
+/* Cursor Glow */
+document.addEventListener("mousemove",(e)=>{
+  document.getElementById("glow").style.left=e.clientX+"px";
+  document.getElementById("glow").style.top=e.clientY+"px";
 });
 
-/* Cake */
-function blow(){
-    alert("Close your eyes and make a wish 💫");
+/* 3D Carousel Setup */
+const images=["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg","6.jpeg","7.jpeg","8.jpeg","9.jpeg","11.jpeg","12.jpeg","13.jpeg","14.jpeg"];
+let carousel=document.getElementById("carousel");
+let angle=360/images.length;
+images.forEach((img,i)=>{
+  let image=document.createElement("img");
+  image.src=img;
+  image.style.transform=`rotateY(${i*angle}deg) translateZ(300px)`;
+  carousel.appendChild(image);
+});
+
+/* Love Meter */
+let love=0;
+function increaseLove(){
+  love+=5;
+  if(love>100) love=100;
+  document.getElementById("loveFill").style.width=love+"%";
+  if(love===100){
+    document.getElementById("final").style.display="block";
+  }
 }
 
-/* Love Counter */
-let count=0;
-function love(){
-    count++;
-    document.getElementById("loveCount").innerText=count;
-    if(count===50){
-        document.getElementById("confession").style.display="block";
-    }
-}
-
-/* Easter Egg */
-let secret="";
+/* Secret Trigger mahu */
+let typed="";
 document.addEventListener("keydown",(e)=>{
-    secret+=e.key;
-    if(secret.includes("forever")){
-        alert("Forever is my answer too ❤️");
-        secret="";
-    }
+  typed+=e.key.toLowerCase();
+  if(typed.includes("mahu")){
+    document.getElementById("secretPanel").classList.add("show");
+    typed="";
+  }
 });
 </script>
 
