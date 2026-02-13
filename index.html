@@ -3,265 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday ❤️</title>
+<title>For You ❤️</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at bottom, #0f2027, #203a43, #2c5364);
-    color: white;
-    text-align: center;
-    overflow-x: hidden;
+:root{
+    --pink:#ff4e88;
 }
 
-/* Stars */
-body::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url("https://www.transparenttextures.com/patterns/stardust.png");
-    opacity: 0.4;
-    z-index: -1;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Soft Pink Glow Background */
+body::before{
+    content:"";
+    position:fixed;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle, rgba(255,78,136,0.35), transparent 70%);
+    top:-200px;
+    left:-200px;
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle, rgba(255,78,136,0.25), transparent 70%);
+    bottom:-200px;
+    right:-200px;
+    z-index:-1;
 }
 
 /* Password Screen */
-#passwordScreen {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 999;
+#lock{
+    position:fixed;
+    height:100vh;
+    width:100%;
+    background:black;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
 }
 
-input {
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    text-align: center;
+input{
+    padding:12px 20px;
+    border-radius:30px;
+    border:1px solid var(--pink);
+    background:black;
+    color:white;
+    margin-top:15px;
+    text-align:center;
 }
 
-button {
-    padding: 12px 25px;
-    border-radius: 25px;
-    border: none;
-    background: white;
-    color: #ff4e88;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 15px;
+button{
+    padding:12px 25px;
+    border-radius:30px;
+    border:none;
+    background:var(--pink);
+    color:white;
+    cursor:pointer;
+    margin-top:15px;
+    transition:0.3s;
 }
 
-button:hover {
-    background: #ff4e88;
-    color: white;
+button:hover{
+    box-shadow:0 0 15px var(--pink);
 }
 
-section {
-    padding: 80px 20px;
+/* Sections */
+section{
+    padding:80px 20px;
+    text-align:center;
+    max-width:900px;
+    margin:auto;
 }
 
-/* Typing Text */
-#typing {
-    font-size: 22px;
-    max-width: 700px;
-    margin: auto;
-    border-right: 2px solid white;
-    white-space: nowrap;
-    overflow: hidden;
+/* Cinematic Text */
+.story{
+    font-size:20px;
+    line-height:1.8;
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
 }
 
-/* Main Photo */
-.main-photo {
-    width: 320px;
-    border-radius: 25px;
-    box-shadow: 0 0 30px pink;
-    margin-top: 30px;
+.story.show{
+    opacity:1;
+    transform:translateY(0);
 }
 
-/* Cake */
-.cake {
-    font-size: 80px;
-    cursor: pointer;
+/* Hero Photo */
+.hero{
+    width:100%;
+    max-width:400px;
+    border-radius:20px;
+    box-shadow:0 0 40px var(--pink);
 }
 
-/* Popup */
-#popup {
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    color: #ff4e88;
-    padding: 20px;
-    border-radius: 20px;
+/* Gallery */
+.gallery{
+    display:flex;
+    overflow-x:auto;
+    gap:15px;
+    padding:20px;
+    scroll-snap-type:x mandatory;
+}
+
+.gallery img{
+    width:250px;
+    border-radius:15px;
+    scroll-snap-align:center;
+    flex-shrink:0;
+}
+
+/* Love Counter */
+#loveCount{
+    font-size:24px;
+    margin-top:20px;
 }
 
 /* Confession */
-#confession {
-    display: none;
+#confession{
+    display:none;
+    font-size:26px;
+    margin-top:40px;
+    animation:fadeIn 1.5s ease forwards;
 }
 
-/* Floating Hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 20px;
-    animation: floatUp 6s linear infinite;
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100vh); opacity: 0; }
-}
-
-.firework {
-    position: fixed;
-    font-size: 30px;
-    animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
+/* Responsive */
+@media(max-width:768px){
+    .story{font-size:18px;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD -->
-<div id="passwordScreen">
-    <h2>🔐 Enter the Secret</h2>
+<div id="lock">
+    <h2>Enter the Secret 🔐</h2>
     <input type="password" id="pass">
-    <button onclick="unlock()">Enter ❤️</button>
+    <button onclick="unlock()">Enter</button>
     <p id="wrong"></p>
 </div>
 
-<div id="main" style="display:none;">
+<div id="content" style="display:none;">
 
 <audio controls autoplay loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <section>
-    <h1>Happy Birthday My Love ❤️</h1>
+    <h1 style="font-size:40px;">Happy Birthday ❤️</h1>
+</section>
+
+<section class="story">
+    The world did not change the day you were born.
+    But mine did.
+</section>
+
+<section class="story">
+    In a universe full of noise,
+    you became my quiet.
+    In days full of chaos,
+    you became my calm.
 </section>
 
 <section>
-    <div id="typing"></div>
+    <img src="10.jpeg" class="hero">
+</section>
+
+<section class="story">
+    Loving you is not a moment.
+    It is a feeling that grows deeper
+    every single day.
 </section>
 
 <section>
-    <img src="10.jpeg" class="main-photo">
+    <h2>Memories</h2>
+    <div class="gallery">
+        <img src="1.jpeg">
+        <img src="2.jpeg">
+        <img src="3.jpeg">
+        <img src="4.jpeg">
+        <img src="5.jpeg">
+        <img src="6.jpeg">
+        <img src="7.jpeg">
+        <img src="8.jpeg">
+        <img src="9.jpeg">
+        <img src="11.jpeg">
+        <img src="12.jpeg">
+        <img src="13.jpeg">
+        <img src="14.jpeg">
+    </div>
 </section>
 
 <section>
-    <h2>🎂 Make a Wish</h2>
-    <div class="cake" onclick="blowCandles()">🎂</div>
+    <h2>Make a Wish 🎂</h2>
+    <button onclick="blow()">Blow the Candles</button>
 </section>
 
 <section>
-    <h2>💘 Love Game</h2>
-    <button onclick="increaseLove()">❤️ Click Me ❤️</button>
+    <h2>How much do you love me? ❤️</h2>
+    <button onclick="love()">Click</button>
     <div id="loveCount">0</div>
 </section>
 
 <section id="confession">
-    <h2>Will you stay with me forever? ❤️</h2>
-    <button onclick="finalYes()">YES 💖</button>
+    Will you stay with me… not just today,
+    but for every birthday that comes?
 </section>
 
 </div>
 
-<div id="popup"></div>
-
 <script>
-
-/* PASSWORD */
 function unlock(){
-    if(document.getElementById("pass").value === "1411"){
-        document.getElementById("passwordScreen").style.display="none";
-        document.getElementById("main").style.display="block";
-        startTyping();
-    } else {
-        document.getElementById("wrong").innerText="Wrong password 😢";
+    if(document.getElementById("pass").value==="1411"){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("content").style.display="block";
+    }else{
+        document.getElementById("wrong").innerText="Wrong password";
     }
 }
 
-/* Typing Effect */
-const text = "You are the most beautiful part of my life. Every moment with you feels magical. I am so lucky to call you mine.";
-let i=0;
-function startTyping(){
-    const speed = 50;
-    function type(){
-        if(i<text.length){
-            document.getElementById("typing").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type,speed);
+/* Scroll Animation */
+const stories=document.querySelectorAll(".story");
+window.addEventListener("scroll",()=>{
+    stories.forEach(el=>{
+        const pos=el.getBoundingClientRect().top;
+        if(pos<window.innerHeight-100){
+            el.classList.add("show");
         }
-    }
-    type();
+    });
+});
+
+/* Cake */
+function blow(){
+    alert("Close your eyes and make a wish 💫");
 }
 
-/* Cake Interaction */
-function blowCandles(){
-    alert("Make a wish 💫");
-}
-
-/* Love Game */
-let love=0;
-function increaseLove(){
-    love++;
-    document.getElementById("loveCount").innerText=love;
-    if(love===50){
-        fireworks();
-        document.getElementById("popup").style.display="block";
-        document.getElementById("popup").innerText="🎉 Surprise! I love you forever!";
+/* Love Counter */
+let count=0;
+function love(){
+    count++;
+    document.getElementById("loveCount").innerText=count;
+    if(count===50){
         document.getElementById("confession").style.display="block";
     }
 }
 
-/* Fireworks */
-function fireworks(){
-    for(let i=0;i<15;i++){
-        let f=document.createElement("div");
-        f.className="firework";
-        f.innerText="🎆";
-        f.style.left=Math.random()*100+"vw";
-        f.style.top=Math.random()*100+"vh";
-        document.body.appendChild(f);
-        setTimeout(()=>f.remove(),1000);
-    }
-}
-
-/* Floating Hearts */
-setInterval(()=>{
-    let h=document.createElement("div");
-    h.className="heart";
-    h.innerText="❤️";
-    h.style.left=Math.random()*100+"vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),6000);
-},500);
-
 /* Easter Egg */
-document.addEventListener("keydown",function(e){
-    if(e.key==="L"){
-        alert("You found the secret. I love you more ❤️");
+let secret="";
+document.addEventListener("keydown",(e)=>{
+    secret+=e.key;
+    if(secret.includes("forever")){
+        alert("Forever is my answer too ❤️");
+        secret="";
     }
 });
-
-function finalYes(){
-    alert("Forever starts now ❤️");
-}
-
 </script>
 
 </body>
