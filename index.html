@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Love ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff5f8f, #ff8fb1);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* PASSWORD SCREEN */
+#passwordScreen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff5f8f, #ff8fb1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999;
+}
+
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+button {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: #ff4e88;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #ff4e88;
+    color: white;
+}
+
+section {
+    padding: 70px 20px;
+}
+
+.main-photo {
+    width: 320px;
+    border-radius: 25px;
+    box-shadow: 0 0 35px rgba(255,255,255,0.7);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+/* Slideshow */
+.slideshow img {
+    width: 300px;
+    border-radius: 20px;
+    display: none;
+    margin: auto;
+}
+
+.slideshow img.active {
+    display: block;
+}
+
+/* Floating Hearts */
+.heart-float {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* Fireworks */
+.firework {
+    position: fixed;
+    font-size: 30px;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* Surprise Popup */
+#surprisePopup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #ff4e88;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+    <h2>🔐 Enter Our Secret Password</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Enter ❤️</button>
+    <p id="wrongPass" style="color:white;"></p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
+
+<audio controls autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<section>
+    <h1>Happy Birthday My Love ❤️</h1>
+</section>
+
+<section>
+    <h2>🌟 My Favorite Smile</h2>
+    <img src="10.jpeg" class="main-photo">
+</section>
+
+<section>
+    <h2>📸 Our Beautiful Memories</h2>
+    <div class="slideshow">
+        <img src="1.jpeg" class="active">
+        <img src="2.jpeg">
+        <img src="3.jpeg">
+        <img src="4.jpeg">
+        <img src="5.jpeg">
+        <img src="6.jpeg">
+        <img src="7.jpeg">
+        <img src="8.jpeg">
+        <img src="9.jpeg">
+        <img src="10.jpeg">
+        <img src="11.jpeg">
+        <img src="12.jpeg">
+        <img src="13.jpeg">
+        <img src="14.jpeg">
+    </div>
+    <button onclick="nextSlide()">Next Memory ❤️</button>
+</section>
+
+<section>
+    <h2>💘 Love Game</h2>
+    <p>Click the heart 50 times to unlock surprise 😌</p>
+    <button onclick="increaseLove()">❤️ Click Me ❤️</button>
+    <div id="loveCount">Love Count: 0</div>
+</section>
+
+<section>
+    <h2>I Love You Forever ❤️</h2>
+</section>
+
+</div>
+
+<!-- SURPRISE POPUP -->
+<div id="surprisePopup">
+    🎉 Surprise! I am so lucky to have you in my life. You are my forever ❤️
+</div>
+
+<script>
+/* PASSWORD */
+function checkPassword() {
+    let pass = document.getElementById("passwordInput").value;
+    if(pass === "1411") {   // CHANGE PASSWORD HERE
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        document.getElementById("wrongPass").innerText = "Wrong password 😢";
+    }
+}
+
+/* Slideshow */
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slideshow img");
+
+function nextSlide() {
+    slides[slideIndex].classList.remove("active");
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add("active");
+}
+
+/* Love Game */
+let love = 0;
+function increaseLove() {
+    love++;
+    document.getElementById("loveCount").innerText = "Love Count: " + love;
+
+    if(love === 50){
+        launchFireworks();
+        document.getElementById("surprisePopup").style.display = "block";
+    }
+}
+
+/* Fireworks */
+function launchFireworks() {
+    for(let i=0;i<15;i++){
+        let fire = document.createElement("div");
+        fire.classList.add("firework");
+        fire.innerText = "🎆";
+        fire.style.left = Math.random()*100+"vw";
+        fire.style.top = Math.random()*100+"vh";
+        document.body.appendChild(fire);
+        setTimeout(()=>fire.remove(),1000);
+    }
+}
+
+/* Floating Hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart-float");
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 500);
+
+</script>
+
+</body>
+</html>
