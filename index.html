@@ -3,376 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Mahu ❤️</title>
+<title>Happy Birthday My Love ❤️</title>
 
 <style>
-:root{
-  --pink:#ff2e7a;
-  --dark:#050505;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff5f8f, #ff8fb1);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-
-body{
-  background:var(--dark);
-  color:white;
-  overflow-x:hidden;
+/* PASSWORD SCREEN */
+#passwordScreen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff5f8f, #ff8fb1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999;
 }
 
-/* ================= LOADING SCREEN ================= */
-
-#loader{
-  position:fixed;
-  width:100%;
-  height:100vh;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:1000;
-  animation:fadeOut 2s ease 3s forwards;
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
 }
 
-#loader h1{
-  color:var(--pink);
-  letter-spacing:5px;
-  animation:pulse 1.5s infinite;
+button {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: #ff4e88;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
 }
 
-@keyframes pulse{
-  0%{opacity:0.4;}
-  50%{opacity:1;}
-  100%{opacity:0.4;}
+button:hover {
+    background: #ff4e88;
+    color: white;
 }
 
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden;}
+section {
+    padding: 70px 20px;
 }
 
-/* ================= STARFIELD ================= */
-
-#stars{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  z-index:-2;
+.main-photo {
+    width: 320px;
+    border-radius: 25px;
+    box-shadow: 0 0 35px rgba(255,255,255,0.7);
+    animation: glow 2s infinite alternate;
 }
 
-/* Pink glow aura */
-.cursor-glow{
-  position:fixed;
-  width:250px;
-  height:250px;
-  background:radial-gradient(circle, rgba(255,46,122,0.3), transparent 70%);
-  border-radius:50%;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:-1;
+@keyframes glow {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
 }
 
-/* ================= LOCK ================= */
-
-#lock{
-  position:fixed;
-  width:100%;
-  height:100vh;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:999;
+/* Slideshow */
+.slideshow img {
+    width: 300px;
+    border-radius: 20px;
+    display: none;
+    margin: auto;
 }
 
-input{
-  padding:12px 25px;
-  border-radius:30px;
-  border:1px solid var(--pink);
-  background:black;
-  color:white;
-  margin-top:20px;
-  text-align:center;
+.slideshow img.active {
+    display: block;
 }
 
-button{
-  padding:12px 30px;
-  border-radius:30px;
-  border:none;
-  background:var(--pink);
-  color:white;
-  margin-top:20px;
-  cursor:pointer;
-  transition:0.3s;
+/* Floating Hearts */
+.heart-float {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
 }
 
-button:hover{
-  box-shadow:0 0 15px var(--pink);
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
 }
 
-section{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  padding:40px;
-  text-align:center;
-  transition:transform 1.2s ease, opacity 1.2s ease;
+/* Fireworks */
+.firework {
+    position: fixed;
+    font-size: 30px;
+    animation: explode 1s ease-out forwards;
 }
 
-/* ================= HERO TEXT ================= */
-
-.hero-title{
-  font-size:50px;
-  color:var(--pink);
-  letter-spacing:3px;
-  opacity:0;
-  transform:scale(0.8);
-  transition:1.5s;
+@keyframes explode {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
 }
 
-.hero-title.show{
-  opacity:1;
-  transform:scale(1);
-}
-
-/* ================= LETTER ================= */
-
-#letter{
-  font-size:20px;
-  max-width:800px;
-  line-height:1.8;
-  border-right:2px solid var(--pink);
-  white-space:nowrap;
-  overflow:hidden;
-}
-
-/* ================= HERO IMAGE ================= */
-
-.hero-img{
-  width:80%;
-  max-width:400px;
-  border-radius:20px;
-  box-shadow:0 0 40px var(--pink);
-  transform:scale(0.6);
-  opacity:0;
-  transition:1.5s;
-}
-
-.hero-img.show{
-  transform:scale(1);
-  opacity:1;
-}
-
-/* ================= LOVE BAR ================= */
-
-#loveBar{
-  width:300px;
-  height:20px;
-  border:1px solid var(--pink);
-  margin-top:20px;
-}
-
-#loveFill{
-  height:100%;
-  width:0%;
-  background:var(--pink);
-  transition:0.3s;
-}
-
-/* ================= FINAL ================= */
-
-#final{
-  display:none;
-  font-size:28px;
-  color:var(--pink);
-  animation:fadeIn 2s forwards;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-/* ================= SECRET PANEL ================= */
-
-#secret{
-  position:fixed;
-  right:-350px;
-  top:0;
-  width:300px;
-  height:100%;
-  background:#111;
-  padding:30px;
-  transition:0.6s;
-  box-shadow:-5px 0 20px rgba(255,46,122,0.5);
-}
-
-#secret.show{right:0;}
-
-@media(max-width:768px){
-  .hero-title{font-size:35px;}
-  #letter{font-size:18px;}
+/* Surprise Popup */
+#surprisePopup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #ff4e88;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 </style>
 </head>
 
 <body>
 
-<div id="loader">
-  <h1>Loading Your Universe...</h1>
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+    <h2>🔐 Enter Our Secret Password</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Enter ❤️</button>
+    <p id="wrongPass" style="color:white;"></p>
 </div>
 
-<canvas id="stars"></canvas>
-<div class="cursor-glow" id="glow"></div>
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
 
-<div id="lock">
-  <h2>Enter the Secret 🔐</h2>
-  <input type="password" id="pass">
-  <button onclick="unlock()">Enter</button>
-</div>
-
-<div id="content" style="display:none;">
-
-<audio id="bgMusic" loop>
+<audio controls autoplay loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <section>
-  <h1 class="hero-title" id="birthdayTitle">Happy Birthday Mahu ❤️</h1>
+    <h1>Happy Birthday My Love ❤️</h1>
 </section>
 
 <section>
-  <div id="letter"></div>
+    <h2>🌟 My Favorite Smile</h2>
+    <img src="10.jpeg" class="main-photo">
 </section>
 
 <section>
-  <img src="10.jpeg" class="hero-img" id="heroImg">
+    <h2>📸 Our Beautiful Memories</h2>
+    <div class="slideshow">
+        <img src="1.jpeg" class="active">
+        <img src="2.jpeg">
+        <img src="3.jpeg">
+        <img src="4.jpeg">
+        <img src="5.jpeg">
+        <img src="6.jpeg">
+        <img src="7.jpeg">
+        <img src="8.jpeg">
+        <img src="9.jpeg">
+        <img src="10.jpeg">
+        <img src="11.jpeg">
+        <img src="12.jpeg">
+        <img src="13.jpeg">
+        <img src="14.jpeg">
+    </div>
+    <button onclick="nextSlide()">Next Memory ❤️</button>
 </section>
 
 <section>
-  <h2>Love Energy</h2>
-  <button onclick="increaseLove()">Charge ❤️</button>
-  <div id="loveBar"><div id="loveFill"></div></div>
+    <h2>💘 Love Game</h2>
+    <p>Click the heart 50 times to unlock surprise 😌</p>
+    <button onclick="increaseLove()">❤️ Click Me ❤️</button>
+    <div id="loveCount">Love Count: 0</div>
 </section>
 
-<section id="final">
-  Every lifetime. Every universe. It’s you, Mahu. ❤️
+<section>
+    <h2>I Love You Forever ❤️</h2>
 </section>
 
 </div>
 
-<div id="secret">
-  <h3>You found the hidden door...</h3>
-  <p>No matter what happens in this world, my heart belongs to you.</p>
+<!-- SURPRISE POPUP -->
+<div id="surprisePopup">
+    🎉 Surprise! I am so lucky to have you in my life. You are my forever ❤️
 </div>
 
 <script>
-
-/* ================= PASSWORD ================= */
-function unlock(){
-  if(document.getElementById("pass").value==="1411"){
-    document.getElementById("lock").style.display="none";
-    document.getElementById("content").style.display="block";
-    startExperience();
-  }
+/* PASSWORD */
+function checkPassword() {
+    let pass = document.getElementById("passwordInput").value;
+    if(pass === "iloveyou") {   // CHANGE PASSWORD HERE
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        document.getElementById("wrongPass").innerText = "Wrong password 😢";
+    }
 }
 
-/* ================= MUSIC FADE ================= */
-function startExperience(){
-  let music=document.getElementById("bgMusic");
-  music.volume=0;
-  music.play();
-  let fade=setInterval(()=>{
-    if(music.volume<0.6){music.volume+=0.02;}
-    else clearInterval(fade);
-  },200);
-  document.getElementById("birthdayTitle").classList.add("show");
-  typeLetter();
+/* Slideshow */
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slideshow img");
+
+function nextSlide() {
+    slides[slideIndex].classList.remove("active");
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add("active");
 }
 
-/* ================= TYPEWRITER LETTER ================= */
-const text="From the moment you came into my life, everything felt different. You are not just a chapter, you are the whole story. In every quiet night and every bright morning, it is you I think about. Happy Birthday, Mahu. May every dream you have find its way to you, and may I always be there to walk beside you.";
-let i=0;
-function typeLetter(){
-  let el=document.getElementById("letter");
-  if(i<text.length){
-    el.innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(typeLetter,35);
-  }else{
-    document.getElementById("heroImg").classList.add("show");
-  }
+/* Love Game */
+let love = 0;
+function increaseLove() {
+    love++;
+    document.getElementById("loveCount").innerText = "Love Count: " + love;
+
+    if(love === 50){
+        launchFireworks();
+        document.getElementById("surprisePopup").style.display = "block";
+    }
 }
 
-/* ================= STARFIELD PARALLAX ================= */
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let stars=[];
-for(let i=0;i<200;i++){
-  stars.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    size:Math.random()*2,
-    speed:Math.random()*0.5+0.2
-  });
-}
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="white";
-  stars.forEach(s=>{
-    ctx.fillRect(s.x,s.y,s.size,s.size);
-    s.y+=s.speed;
-    if(s.y>canvas.height) s.y=0;
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* Cursor Glow */
-document.addEventListener("mousemove",(e)=>{
-  document.getElementById("glow").style.left=e.clientX+"px";
-  document.getElementById("glow").style.top=e.clientY+"px";
-});
-
-/* ================= LOVE BAR + FIREWORKS ================= */
-let love=0;
-function increaseLove(){
-  love+=5;
-  if(love>100) love=100;
-  document.getElementById("loveFill").style.width=love+"%";
-  if(love===100){
-    fireworks();
-    document.getElementById("final").style.display="block";
-  }
+/* Fireworks */
+function launchFireworks() {
+    for(let i=0;i<15;i++){
+        let fire = document.createElement("div");
+        fire.classList.add("firework");
+        fire.innerText = "🎆";
+        fire.style.left = Math.random()*100+"vw";
+        fire.style.top = Math.random()*100+"vh";
+        document.body.appendChild(fire);
+        setTimeout(()=>fire.remove(),1000);
+    }
 }
 
-function fireworks(){
-  for(let i=0;i<30;i++){
-    let f=document.createElement("div");
-    f.style.position="fixed";
-    f.style.left=Math.random()*100+"vw";
-    f.style.top=Math.random()*100+"vh";
-    f.style.color="pink";
-    f.innerHTML="🎆";
-    f.style.fontSize="30px";
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1500);
-  }
-}
+/* Floating Hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart-float");
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 500);
 
-/* ================= SECRET TRIGGER mahu ================= */
-let typed="";
-document.addEventListener("keydown",(e)=>{
-  typed+=e.key.toLowerCase();
-  if(typed.includes("mahu")){
-    document.getElementById("secret").classList.add("show");
-    typed="";
-  }
-});
 </script>
 
 </body>
