@@ -19,7 +19,39 @@ body{
   overflow-x:hidden;
 }
 
-/* Starfield Canvas */
+/* ================= LOADING SCREEN ================= */
+
+#loader{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:1000;
+  animation:fadeOut 2s ease 3s forwards;
+}
+
+#loader h1{
+  color:var(--pink);
+  letter-spacing:5px;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:0.4;}
+  50%{opacity:1;}
+  100%{opacity:0.4;}
+}
+
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden;}
+}
+
+/* ================= STARFIELD ================= */
+
 #stars{
   position:fixed;
   top:0;left:0;
@@ -27,19 +59,20 @@ body{
   z-index:-2;
 }
 
-/* Pink Cursor Glow */
+/* Pink glow aura */
 .cursor-glow{
   position:fixed;
-  width:200px;
-  height:200px;
-  background:radial-gradient(circle, rgba(255,46,122,0.35), transparent 70%);
+  width:250px;
+  height:250px;
+  background:radial-gradient(circle, rgba(255,46,122,0.3), transparent 70%);
   border-radius:50%;
   pointer-events:none;
   transform:translate(-50%,-50%);
   z-index:-1;
 }
 
-/* Lock Screen */
+/* ================= LOCK ================= */
+
 #lock{
   position:fixed;
   width:100%;
@@ -59,6 +92,7 @@ input{
   background:black;
   color:white;
   margin-top:20px;
+  text-align:center;
 }
 
 button{
@@ -84,11 +118,29 @@ section{
   flex-direction:column;
   padding:40px;
   text-align:center;
+  transition:transform 1.2s ease, opacity 1.2s ease;
 }
 
-/* Typewriter */
-#typeText{
-  font-size:22px;
+/* ================= HERO TEXT ================= */
+
+.hero-title{
+  font-size:50px;
+  color:var(--pink);
+  letter-spacing:3px;
+  opacity:0;
+  transform:scale(0.8);
+  transition:1.5s;
+}
+
+.hero-title.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* ================= LETTER ================= */
+
+#letter{
+  font-size:20px;
   max-width:800px;
   line-height:1.8;
   border-right:2px solid var(--pink);
@@ -96,45 +148,25 @@ section{
   overflow:hidden;
 }
 
-/* Hero Image */
-.hero{
+/* ================= HERO IMAGE ================= */
+
+.hero-img{
   width:80%;
   max-width:400px;
   border-radius:20px;
   box-shadow:0 0 40px var(--pink);
-  transform:scale(0.8);
+  transform:scale(0.6);
   opacity:0;
   transition:1.5s;
 }
 
-.hero.show{
+.hero-img.show{
   transform:scale(1);
   opacity:1;
 }
 
-/* 3D Carousel */
-.carousel{
-  position:relative;
-  width:300px;
-  height:300px;
-  transform-style:preserve-3d;
-  animation:rotate 20s infinite linear;
-}
+/* ================= LOVE BAR ================= */
 
-.carousel img{
-  position:absolute;
-  width:200px;
-  height:200px;
-  border-radius:15px;
-  left:50px;
-}
-
-@keyframes rotate{
-  from{transform:rotateY(0);}
-  to{transform:rotateY(360deg);}
-}
-
-/* Love Meter */
 #loveBar{
   width:300px;
   height:20px;
@@ -149,10 +181,12 @@ section{
   transition:0.3s;
 }
 
-/* Confession */
+/* ================= FINAL ================= */
+
 #final{
   display:none;
   font-size:28px;
+  color:var(--pink);
   animation:fadeIn 2s forwards;
 }
 
@@ -161,10 +195,11 @@ section{
   to{opacity:1;}
 }
 
-/* Secret Panel */
-#secretPanel{
+/* ================= SECRET PANEL ================= */
+
+#secret{
   position:fixed;
-  right:-400px;
+  right:-350px;
   top:0;
   width:300px;
   height:100%;
@@ -174,18 +209,20 @@ section{
   box-shadow:-5px 0 20px rgba(255,46,122,0.5);
 }
 
-#secretPanel.show{
-  right:0;
-}
+#secret.show{right:0;}
 
-/* Responsive */
 @media(max-width:768px){
-  #typeText{font-size:18px;}
+  .hero-title{font-size:35px;}
+  #letter{font-size:18px;}
 }
 </style>
 </head>
 
 <body>
+
+<div id="loader">
+  <h1>Loading Your Universe...</h1>
+</div>
 
 <canvas id="stars"></canvas>
 <div class="cursor-glow" id="glow"></div>
@@ -203,16 +240,15 @@ section{
 </audio>
 
 <section>
-  <div id="typeText"></div>
+  <h1 class="hero-title" id="birthdayTitle">Happy Birthday Mahu ❤️</h1>
 </section>
 
 <section>
-  <img src="10.jpeg" class="hero" id="heroImg">
+  <div id="letter"></div>
 </section>
 
 <section>
-  <h2>Our Dimension</h2>
-  <div class="carousel" id="carousel"></div>
+  <img src="10.jpeg" class="hero-img" id="heroImg">
 </section>
 
 <section>
@@ -227,13 +263,14 @@ section{
 
 </div>
 
-<div id="secretPanel">
-  <h3>You found it…</h3>
-  <p>No matter what happens, my heart chooses you. Always.</p>
+<div id="secret">
+  <h3>You found the hidden door...</h3>
+  <p>No matter what happens in this world, my heart belongs to you.</p>
 </div>
 
 <script>
-/* Password */
+
+/* ================= PASSWORD ================= */
 function unlock(){
   if(document.getElementById("pass").value==="1411"){
     document.getElementById("lock").style.display="none";
@@ -242,52 +279,58 @@ function unlock(){
   }
 }
 
-/* Audio Fade In */
+/* ================= MUSIC FADE ================= */
 function startExperience(){
   let music=document.getElementById("bgMusic");
   music.volume=0;
   music.play();
   let fade=setInterval(()=>{
-    if(music.volume<0.5){music.volume+=0.02;}
+    if(music.volume<0.6){music.volume+=0.02;}
     else clearInterval(fade);
   },200);
-  typeStory();
+  document.getElementById("birthdayTitle").classList.add("show");
+  typeLetter();
 }
 
-/* Typewriter Story */
-const text="In a universe full of chaos, you became my calm. In every version of my future... there is you.";
+/* ================= TYPEWRITER LETTER ================= */
+const text="From the moment you came into my life, everything felt different. You are not just a chapter, you are the whole story. In every quiet night and every bright morning, it is you I think about. Happy Birthday, Mahu. May every dream you have find its way to you, and may I always be there to walk beside you.";
 let i=0;
-function typeStory(){
-  let t=document.getElementById("typeText");
+function typeLetter(){
+  let el=document.getElementById("letter");
   if(i<text.length){
-    t.innerHTML+=text.charAt(i);
+    el.innerHTML+=text.charAt(i);
     i++;
-    setTimeout(typeStory,40);
+    setTimeout(typeLetter,35);
   }else{
     document.getElementById("heroImg").classList.add("show");
   }
 }
 
-/* Starfield */
+/* ================= STARFIELD PARALLAX ================= */
 const canvas=document.getElementById("stars");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 let stars=[];
-for(let i=0;i<150;i++){
-  stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*2});
+for(let i=0;i<200;i++){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    size:Math.random()*2,
+    speed:Math.random()*0.5+0.2
+  });
 }
-function animateStars(){
+function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle="white";
   stars.forEach(s=>{
     ctx.fillRect(s.x,s.y,s.size,s.size);
-    s.y+=0.2;
+    s.y+=s.speed;
     if(s.y>canvas.height) s.y=0;
   });
-  requestAnimationFrame(animateStars);
+  requestAnimationFrame(animate);
 }
-animateStars();
+animate();
 
 /* Cursor Glow */
 document.addEventListener("mousemove",(e)=>{
@@ -295,34 +338,38 @@ document.addEventListener("mousemove",(e)=>{
   document.getElementById("glow").style.top=e.clientY+"px";
 });
 
-/* 3D Carousel Setup */
-const images=["1.jpeg","2.jpeg","3.jpeg","4.jpeg","5.jpeg","6.jpeg","7.jpeg","8.jpeg","9.jpeg","11.jpeg","12.jpeg","13.jpeg","14.jpeg"];
-let carousel=document.getElementById("carousel");
-let angle=360/images.length;
-images.forEach((img,i)=>{
-  let image=document.createElement("img");
-  image.src=img;
-  image.style.transform=`rotateY(${i*angle}deg) translateZ(300px)`;
-  carousel.appendChild(image);
-});
-
-/* Love Meter */
+/* ================= LOVE BAR + FIREWORKS ================= */
 let love=0;
 function increaseLove(){
   love+=5;
   if(love>100) love=100;
   document.getElementById("loveFill").style.width=love+"%";
   if(love===100){
+    fireworks();
     document.getElementById("final").style.display="block";
   }
 }
 
-/* Secret Trigger mahu */
+function fireworks(){
+  for(let i=0;i<30;i++){
+    let f=document.createElement("div");
+    f.style.position="fixed";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    f.style.color="pink";
+    f.innerHTML="🎆";
+    f.style.fontSize="30px";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
+  }
+}
+
+/* ================= SECRET TRIGGER mahu ================= */
 let typed="";
 document.addEventListener("keydown",(e)=>{
   typed+=e.key.toLowerCase();
   if(typed.includes("mahu")){
-    document.getElementById("secretPanel").classList.add("show");
+    document.getElementById("secret").classList.add("show");
     typed="";
   }
 });
